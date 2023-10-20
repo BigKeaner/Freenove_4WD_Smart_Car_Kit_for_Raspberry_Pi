@@ -13,7 +13,7 @@ led = Led()
 servo = Servo()
 
 # Initial state
-state = "Driving"
+global state = "Driving"
 
 def move_forward(distance):
     servo.setServoPwm('0',90)
@@ -36,20 +36,20 @@ def stop():
     time.sleep(5)
     led.colorWipe(led.strip, Color(0,0,0))
     state = "Field of View Examination"
-def turn_left()
+def turn_left():
     Car.setMotorModel(500,0,-500,0)
     time.sleep(1)
-def turn_right()
+def turn_right():
     Car.setMotorModel(-500,0,500,0)
     time.sleep(1)
 def scan(direction):
     if direction is "left":
-        for i in range(30,90,1)
+        for i in range(30,90,1):
             servo.setServoPwm('0',i)
             time.sleep(0.01)
     elif direction is "right":
         if direction is "left":
-        for i in range(90,150,1)
+        for i in range(90,150,1):
             servo.setServoPwm('0',i)
             time.sleep(0.01)
     elif direction is "back":
@@ -93,7 +93,7 @@ while True:
             scan("left")
             if valid_path_found():
                 turn_left()
-                while counter > 10
+                while counter > 10:
                     led.ledIndex(0x10,255,255,0)
                     time.sleep(0.5)
                     led.colorWipe(led.strip, Color(0,0,0))
@@ -104,7 +104,7 @@ while True:
                 scan("right")
                 if valid_path_found():
                     turn_right()
-                    while counter > 10
+                    while counter > 10:
                         led.ledIndex(0x20,255,255,0)
                         time.sleep(0.5)
                         led.colorWipe(led.strip, Color(0,0,0))
@@ -119,7 +119,7 @@ while True:
             scan("right")
             if valid_path_found():
                 turn_right()
-                while counter > 10
+                while counter > 10:
                     led.ledIndex(0x10,255,255,0)
                     time.sleep(0.5)
                     led.colorWipe(led.strip, Color(0,0,0))
@@ -130,7 +130,7 @@ while True:
                 scan("left")
                 if valid_path_found():
                     turn_left()
-                    while counter > 10
+                    while counter > 10:
                         led.ledIndex(0x10,255,255,0)
                         time.sleep(0.5)
                         led.colorWipe(led.strip, Color(0,0,0))

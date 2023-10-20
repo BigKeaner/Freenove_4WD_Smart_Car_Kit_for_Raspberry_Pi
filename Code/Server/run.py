@@ -1,27 +1,37 @@
 from random import randint
 import time
 from Motor import *
-import Led
-import Light
+from Led import *
 from Ultrasonic import *
 
 MIN_DISTANCE = 10  # Minimum distance to trigger object detection
+counter = 0
 Car = Motor()
 ultrasonic = Ultrasonic()
+led = Led()
 
 # Initial state
 state = "Driving"
 
 def move_forward(distance):
+    led.ledIndex(0x10,0,255,0)
+    led.ledIndex(0x20,0,255,0)
+
     Car.setMotorModel(distance*10,distance*10,distance*10,distance*10)
-    time.sleep(1)
+    time.sleep(5)
+    led.colorWipe(led.strip, Color(0,0,0))
+
+    
 def object_detected():
     return True if ultrasonic.getDistance() > 0
 def detected_distance():
     return ultrasonic.getDistance()
 def stop():
+    led.ledIndex(0x02,255,0,0)
+    led.ledIndex(0x04,255,0,0)
     Car.setMotorModel(0,0,0,0)
     time.sleep(5)
+    led.colorWipe(led.strip, Color(0,0,0))
     state = "Field of View Examination"
 def turn_left()
     Car.setMotorModel(500,0,-500,0)
@@ -35,8 +45,12 @@ def scan(direction):
     elif direction is "right":
         car.on_btn_Turn_Right()
     elif direction is "back":
+        led.ledIndex(0x02,255,255,0)
+   `    led.ledIndex(0x04,255,255,0)
         Car.setMotorModel(distance*-10,distance*-10,distance*-10,distance*-10)
-        time.sleep(1)
+        time.sleep(1)\    
+        led.colorWipe(led.strip, Color(0,0,0))
+
     else:
         stop()
 
@@ -71,11 +85,23 @@ while True:
             scan("left")
             if valid_path_found():
                 turn_left()
+                while counter > 10
+                    led.ledIndex(0x10,255,255,0)
+                    time.sleep(0.5)
+                    led.colorWipe(led.strip, Color(0,0,0))
+                    counter = counter +1
+                counter = 0
                 state = "Drive"
             if state != "Drive":
                 scan("right")
                 if valid_path_found():
                     turn_right()
+                    while counter > 10
+                        led.ledIndex(0x20,255,255,0)
+                        time.sleep(0.5)
+                        led.colorWipe(led.strip, Color(0,0,0))
+                        counter = counter +1
+                    counter = 0
                     state = "Drive"
                 if state != "Drive":
                     scan("back")
@@ -85,11 +111,23 @@ while True:
             scan("right")
             if valid_path_found():
                 turn_right()
+                while counter > 10
+                    led.ledIndex(0x10,255,255,0)
+                    time.sleep(0.5)
+                    led.colorWipe(led.strip, Color(0,0,0))
+                    counter = counter +1
+                counter = 0
                 state = "Drive"
             if state != "Drive":
                 scan("left")
                 if valid_path_found():
                     turn_left()
+                    while counter > 10
+                        led.ledIndex(0x10,255,255,0)
+                        time.sleep(0.5)
+                        led.colorWipe(led.strip, Color(0,0,0))
+                        counter = counter +1
+                    counter = 0
                     state = "Drive"
                 if state != "Drive":
                     scan("back")

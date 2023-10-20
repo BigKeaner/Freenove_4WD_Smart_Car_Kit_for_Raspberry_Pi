@@ -3,17 +3,20 @@ import time
 from Motor import *
 from Led import *
 from Ultrasonic import *
+from Servo import *
 
 MIN_DISTANCE = 10  # Minimum distance to trigger object detection
 counter = 0
 Car = Motor()
 ultrasonic = Ultrasonic()
 led = Led()
+servo = Servo()
 
 # Initial state
 state = "Driving"
 
 def move_forward(distance):
+    servo.setServoPwm('0',90)
     led.ledIndex(0x10,0,255,0)
     led.ledIndex(0x20,0,255,0)
 
@@ -41,9 +44,14 @@ def turn_right()
     time.sleep(1)
 def scan(direction):
     if direction is "left":
-        car.on_btn_Turn_Left()
+        for i in range(30,90,1)
+            servo.setServoPwm('0',i)
+            time.sleep(0.01)
     elif direction is "right":
-        car.on_btn_Turn_Right()
+        if direction is "left":
+        for i in range(90,150,1)
+            servo.setServoPwm('0',i)
+            time.sleep(0.01)
     elif direction is "back":
         led.ledIndex(0x02,255,255,0)
    `    led.ledIndex(0x04,255,255,0)
